@@ -1,0 +1,17 @@
+{
+  "name": "playwright-ebay-cart",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "codegen": "playwright codegen https://www.ebay.com/",
+    "format": "prettier -w ."
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.46.1",
+    "typescript": "^5.4.5",
+    "dotenv": "^16.4.5"
+    }
+}
