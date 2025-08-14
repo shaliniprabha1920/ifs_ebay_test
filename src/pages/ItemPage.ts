@@ -4,16 +4,15 @@ import { SELECTORS } from '../selectors';
 export class ItemPage {
   constructor(private page: Page) {}
 
-  async addToCart() {
+ async addToCart() {
     for (const sel of SELECTORS.addToCartCandidates) {
-      const btn = this.page.locator(sel).first();
-      if (await btn.count()) {
-        if (await btn.isVisible().catch(() => false)) {
-          await btn.click({ trial: false }).catch(() => {});
-          await this.page.waitForLoadState('networkidle').catch(() => {});
-          break;
-        }
+      const el = this.page.locator(sel).first();
+      if (await el.count() && await el.isVisible().catch(() => false)) {
+        await el.click();
+        await this.page.waitForLoadState('networkidle');
+        return;
       }
     }
+    throw new Error('Add to Cart button/link not found!');
   }
 }

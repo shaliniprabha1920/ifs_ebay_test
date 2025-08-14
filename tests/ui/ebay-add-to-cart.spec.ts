@@ -14,6 +14,7 @@ test.describe('Verify item is added to Cart', () => {
 
     await home.search('book');
     const results = new ResultsPage(page);
+    //await results.waitForResults();
     const pdp = await results.clickFirstResult();
 
     const headerOnPdp = new Header(pdp);
@@ -22,10 +23,9 @@ test.describe('Verify item is added to Cart', () => {
     const item = new ItemPage(pdp);
     await item.addToCart();
   
-    await pdp.waitForTimeout(1500);
     const afterCount = await headerOnPdp.getCartCount();
 
-    const finalCount = afterCount || (await header.getCartCount());
+    const finalCount = afterCount || beforeCount;
     expect(finalCount).toBeGreaterThan(Math.max(initialCount, beforeCount));
   });
 });

@@ -8,15 +8,14 @@ export const SELECTORS = {
   ],
   // Search
   searchInput: 'input#gh-ac',
-  searchSubmit: 'input#gh-btn',
+  searchSubmit: 'button#gh-search-btn',
   // Results list
   firstResultLink: 'ul.srp-results li.s-item a.s-item__link',
   // PDP - Add to Cart
   addToCartCandidates: [
     'button#atcRedesignId_btn',
-    'button#atcBtn_btn',
+    'a#atcBtn_btn1',
     'a#atcRedesignId_btn',
-    'a#isCartBtn_btn',
     'button[aria-label*="Add to cart" i]',
     'button:has-text("Add to cart")',
     'a:has-text("Add to cart")',
