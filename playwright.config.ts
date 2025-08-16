@@ -2,28 +2,26 @@ import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-const baseURL = 'https://www.ebay.com';
-
 export default defineConfig({
   testDir: './tests',
-  timeout: 90000,
-  expect: { timeout: 20000 },
-  fullyParallel: false,// TODO need to make true before pushing 
+  timeout: 60000,
+  expect: {
+    timeout: 10000
+  },
+  fullyParallel: true,
   retries: 1,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
-    baseURL,
+    baseURL: 'https://www.ebay.com',
     trace: 'on-first-retry',
-    video: 'retain-on-failure',
     screenshot: 'only-on-failure',
-    viewport: { width: 1366, height: 768 },
-    headless: false,
+    video: 'retain-on-failure',
+    headless: true, // Set to true for headless mode
+    viewport: { width: 1280, height: 720 },
+    ignoreHTTPSErrors: true,
     actionTimeout: 15000
   },
   projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    // Uncomment if you want to run on other engines too:
-    // { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
-    // { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } }
   ],
 });

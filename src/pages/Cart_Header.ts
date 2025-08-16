@@ -1,7 +1,7 @@
 import { Page } from '@playwright/test';
 import { SELECTORS } from '../selectors';
 
-export class Header {
+export class Cart_Header {
   constructor(private page: Page) {}
 
   async getCartCount(): Promise<number> {
@@ -10,7 +10,9 @@ export class Header {
       if (await el.count()) {
         const txt = (await el.textContent())?.trim() || '';
         const m = txt.match(/\d+/);
-        if (m) return parseInt(m[0], 10);
+        if (m) {
+          return parseInt(m[0], 10);
+        } 
       }
     }
     return 0;

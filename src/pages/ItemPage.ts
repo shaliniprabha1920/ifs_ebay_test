@@ -4,15 +4,32 @@ import { SELECTORS } from '../selectors';
 export class ItemPage {
   constructor(private page: Page) {}
 
- async addToCart() {
+  async addToCart() {
+    // Attempt to click any "Add to cart" variant available.
     for (const sel of SELECTORS.addToCartCandidates) {
-      const el = this.page.locator(sel).first();
-      if (await el.count() && await el.isVisible().catch(() => false)) {
-        await el.click();
-        await this.page.waitForLoadState('networkidle');
-        return;
+      const btn = this.page.locator(sel).first();
+      if (await btn.count()) {
+        if (await btn.isVisible().catch(() => false)) {
+          await btn.click({ trial: false }).catch(() => {});
+          // Give the page a moment to register the click / show overlay.
+          await this.page.waitForLoadState('networkidle').catch(() => {});
+          break;
+        }
       }
     }
-    throw new Error('Add to Cart button/link not found!');
+  }
+
+  async waitForAddedToCartOrTimeout(timeoutMs = 8000) {
+    const start = Date.now();
+    while (Date.now() - start < timeoutMs) {
+      for (const sel of SELECTORS.addedToCartSignals) {
+        const loc = this.page.locator(sel).first();
+        if (await loc.count()) {
+          if (await loc.isVisible().catch(() => false)) return true;
+        }
+      }
+      await this.page.waitForTimeout(250);
+    }
+    return false;
   }
 }

@@ -1,10 +1,12 @@
 export const SELECTORS = {
   // Header / Cart
   cartCountCandidates: [
+    'span.badge.gh-badge',
     '#gh-cart-n',           // historical
     'i#gh-cart-n',          // variant
     'span.gh-cart__count',  // variant
-    'a#gh-cart .gh-cart__count', // another variant
+    'a#gh-cart .gh-cart__count',
+     // another variant
   ],
   // Search
   searchInput: 'input#gh-ac',
@@ -13,6 +15,7 @@ export const SELECTORS = {
   firstResultLink: 'ul.srp-results li.s-item a.s-item__link',
   // PDP - Add to Cart
   addToCartCandidates: [
+    'a#atcBtn_btn_1',
     'button#atcRedesignId_btn',
     'a#atcBtn_btn1',
     'a#atcRedesignId_btn',
